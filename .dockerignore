@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.env
+.env.*
+data/
+media/
+staticfiles/
+Dockerfile
+.dockerignore
+.git/
+.gitignore
+.ruff_cache/
+.python-version
+README.md
+k8s/
