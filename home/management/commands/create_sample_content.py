@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from wagtail.models import Page, Site
 
-from home.models import BlogIndexPage, BlogPage, HomePage
+from home.models import BlogPage, HomePage
 
 
 class Command(BaseCommand):
@@ -32,21 +32,8 @@ class Command(BaseCommand):
         else:
             self.stdout.write("HomePage already exists, skipping.")
 
-        # -- BlogIndexPage --
-        blog_index = BlogIndexPage.objects.child_of(homepage).first()
-        if not blog_index:
-            blog_index = BlogIndexPage(
-                title="Blog",
-                intro="<p>Thoughts on programming, infrastructure, and whatever else sticks.</p>",
-            )
-            homepage.add_child(instance=blog_index)
-            blog_index.save_revision().publish()
-            self.stdout.write(self.style.SUCCESS("Created BlogIndexPage"))
-        else:
-            self.stdout.write("BlogIndexPage already exists, skipping.")
-
         # -- Sample BlogPage --
-        if BlogPage.objects.child_of(blog_index).exists():
+        if BlogPage.objects.child_of(homepage).exists():
             self.stdout.write("BlogPage(s) already exist, skipping sample post.")
             return
 
@@ -85,6 +72,6 @@ class Command(BaseCommand):
                 "Python tooling, k3s adventures, and whatever breaks in production.</p>",
             ),
         ]
-        blog_index.add_child(instance=sample)
+        homepage.add_child(instance=sample)
         sample.save_revision().publish()
         self.stdout.write(self.style.SUCCESS("Created sample BlogPage"))

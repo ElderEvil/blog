@@ -11,8 +11,13 @@ class HomePage(Page):
 
     content_panels = Page.content_panels + [FieldPanel("intro")]
 
-    subpage_types = ["home.BlogIndexPage"]
+    subpage_types = ["home.BlogPage", "home.BlogIndexPage"]
     max_count = 1
+
+    def get_context(self, request, *args, **kwargs):
+        context = super().get_context(request, *args, **kwargs)
+        context["posts"] = BlogPage.objects.child_of(self).live().order_by("-first_published_at")
+        return context
 
 
 class BlogIndexPage(Page):
@@ -39,5 +44,5 @@ class BlogPage(Page):
         FieldPanel("body"),
     ]
 
-    parent_page_types = ["home.BlogIndexPage"]
+    parent_page_types = ["home.HomePage", "home.BlogIndexPage"]
     subpage_types = []

@@ -7,13 +7,13 @@
     <h1>{{ page.title }}</h1>
     <div class="intro">{{ page.intro|richtext }}</div>
 
-    {% if page.get_children.live %}
-        <ul class="post-list">
-            {% for post in page.get_children.live %}
-                <li>
-                    <a href="{% pageurl post %}">{{ post.title }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    {% for post in posts %}
+        <article class="post-preview">
+            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+            <time>{{ post.date }}</time>
+            <p>{{ post.intro }}</p>
+        </article>
+    {% empty %}
+        <p>No posts yet.</p>
+    {% endfor %}
 {% endblock %}
