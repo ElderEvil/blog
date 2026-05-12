@@ -106,10 +106,17 @@ AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "blog-media"
 AWS_S3_ENDPOINT_URL = os.environ.get("AWS_S3_ENDPOINT_URL", "https://s3-api.evillab.tech")
 AWS_S3_VERIFY = os.environ.get("AWS_S3_VERIFY", "false").lower() == "true"
 AWS_S3_SIGNATURE_VERSION = "s3v4"
-AWS_DEFAULT_ACL = "public-read"
 AWS_QUERYSTRING_AUTH = False
 
 DEFAULT_FILE_STORAGE = "storages.backends.s3.S3Storage"
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3.S3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
 MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/"
 
 WAGTAIL_SITE_NAME = os.environ.get("WAGTAIL_SITE_NAME", "My Blog")
