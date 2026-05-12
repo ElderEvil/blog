@@ -151,3 +151,7 @@ jobs:
 - [x] k3s deployment manifests (Traefik TLS, Let's Encrypt)
 - [x] `create_sample_content` management command
 - [x] Landing page updated with blog link
+- [x] S3 media storage via RustFS (blog-media bucket)
+- [x] Umami analytics tracking on blog
+- [x] Umami GeoIP database fix (init container downloads GeoLite2-City.mmdb)
+- [x] Image uploads + renditions working end-to-end on S3
