@@ -92,9 +92,11 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 LANGUAGE_CODE = "en-us"
-TIME_ZONE = "Europe/Kyiv"
+TIME_ZONE = "Europe/Helsinki"
 USE_I18N = True
 USE_TZ = True
+
+WAGTAIL_TIME_ZONE = "Europe/Helsinki"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 STATIC_URL = "/static/"
