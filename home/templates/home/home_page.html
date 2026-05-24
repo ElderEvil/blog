@@ -10,7 +10,10 @@
     {% for post in posts %}
         <article class="post-preview">
             <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
-            <time>{{ post.date }}</time>
+            <div class="meta">
+                <time>{{ post.date }}</time>
+                <span class="author">by {{ post.author }}</span>
+            </div>
             <p>{{ post.intro }}</p>
         </article>
     {% empty %}

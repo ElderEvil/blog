@@ -6,7 +6,10 @@
 {% block content %}
     <article>
         <h1>{{ page.title }}</h1>
-        <time>{{ page.date }}</time>
+        <div class="meta">
+            <time>{{ page.date }}</time>
+            <span class="author">by {{ page.author }}</span>
+        </div>
         <p class="intro">{{ page.intro }}</p>
 
         <div class="body">
