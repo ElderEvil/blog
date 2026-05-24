@@ -14,9 +14,7 @@
             {% if current_site and current_site.site_name %}- {{ current_site.site_name }}{% endif %}
         {% endblock %}
     </title>
-    {% if page and page.search_description %}
-        <meta name="description" content="{{ page.search_description }}">
-    {% endif %}
+    <meta name="description" content="{% if page.search_description %}{{ page.search_description }}{% endif %}">
     <style>
         :root {
             --bg: #ffffff;
