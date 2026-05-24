@@ -13,12 +13,14 @@ from wagtail.images.api.v2.views import ImagesAPIViewSet
 from home.api import BlogPageAPIViewSet
 from search.views import search
 
+# Wagtail read-only API (pages, images)
 wagtail_api_router = WagtailAPIRouter("wagtailapi")
 wagtail_api_router.register_endpoint("pages", PagesAPIViewSet)
 wagtail_api_router.register_endpoint("images", ImagesAPIViewSet)
 
+# DRF router for write endpoints (blog CRUD)
 drf_router = DefaultRouter()
-drf_router.register("blog", BlogPageAPIViewSet, basename="blog")
+drf_router.register(r"blog", BlogPageAPIViewSet, basename="blog")
 
 urlpatterns = [
     path("django-admin/", admin.site.urls),
