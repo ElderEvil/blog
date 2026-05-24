@@ -11,6 +11,7 @@ from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.images.api.v2.views import ImagesAPIViewSet
 
 from home.api import BlogPageAPIViewSet
+from home.image_api import ImageUploadView
 from search.views import search
 
 # Wagtail read-only API (pages, images)
@@ -32,6 +33,7 @@ urlpatterns = [
         include((wagtail_api_router.get_urlpatterns(), "wagtailapi"), namespace="wagtailapi"),
     ),
     path("api/", include(drf_router.urls)),
+    path("api/images/", ImageUploadView.as_view(), name="image-upload"),
 ]
 
 if settings.DEBUG:
