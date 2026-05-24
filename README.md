@@ -61,7 +61,7 @@ All settings are driven by environment variables. See `.env.example` for availab
 
 ```bash
 # Build and tag the image
-docker build -t blog:latest .
+docker build -t elerevil/blog:latest .
 
 # Push to your container registry, then update k8s/deployment.yaml image field
 
