@@ -1,0 +1,19 @@
+{% load wagtailimages_tags %}
+
+<figure>
+    {% image value width-320 as img_320 %}
+    {% image value width-640 as img_640 %}
+    {% image value width-800 as img_800 %}
+    <img
+        src="{{ img_800.url }}"
+        srcset="{{ img_320.url }} 320w, {{ img_640.url }} 640w, {{ img_800.url }} 800w"
+        sizes="(max-width: 640px) 100vw, 800px"
+        width="{{ img_800.width }}"
+        height="{{ img_800.height }}"
+        alt="{{ img_800.alt }}"
+        loading="lazy"
+    />
+    {% if value.title %}
+        <figcaption>{{ value.title }}</figcaption>
+    {% endif %}
+</figure>

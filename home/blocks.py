@@ -10,7 +10,7 @@ class BodyBlock(blocks.StreamBlock):
         template="blocks/heading.html",
     )
     paragraph = blocks.RichTextBlock(features=["bold", "italic", "link", "ol", "ul", "code"])
-    image = ImageChooserBlock()
+    image = ImageChooserBlock(template="blocks/image.html")
     embed = EmbedBlock()
     code = blocks.TextBlock(
         icon="code",
