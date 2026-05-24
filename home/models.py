@@ -34,14 +34,25 @@ class BlogIndexPage(Page):
 
 
 class BlogPage(Page):
+    AUTHOR_CHOICES = [
+        ("Elder.Evil", "Elder.Evil"),
+        ("Nyx", "Nyx"),
+    ]
+
     date = models.DateField("Post date")
     intro = models.CharField(max_length=250)
     body = StreamField(BodyBlock(), blank=True, use_json_field=True)
+    author = models.CharField(
+        max_length=20,
+        choices=AUTHOR_CHOICES,
+        default="Elder.Evil",
+    )
 
     content_panels = Page.content_panels + [
         FieldPanel("date"),
         FieldPanel("intro"),
         FieldPanel("body"),
+        FieldPanel("author"),
     ]
 
     parent_page_types = ["home.HomePage", "home.BlogIndexPage"]
