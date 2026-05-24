@@ -35,11 +35,12 @@ wheels = [
 
 [[package]]
 name = "blog"
-version = "0.3.0"
+version = "0.4.0"
 source = { virtual = "." }
 dependencies = [
     { name = "boto3" },
     { name = "django-storages" },
+    { name = "djangorestframework" },
     { name = "gunicorn" },
     { name = "wagtail" },
     { name = "whitenoise" },
@@ -54,6 +55,7 @@ dev = [
 requires-dist = [
     { name = "boto3", specifier = ">=1.43.6" },
     { name = "django-storages", specifier = ">=1.14.6" },
+    { name = "djangorestframework", specifier = ">=3.15" },
     { name = "gunicorn", specifier = ">=23" },
     { name = "wagtail", specifier = ">=6.0" },
     { name = "whitenoise", specifier = ">=6.12.0" },
