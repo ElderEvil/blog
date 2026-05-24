@@ -15,6 +15,19 @@ class BlogPageSerializer(serializers.Serializer):
     body = serializers.JSONField(required=False, default=list)
     live = serializers.BooleanField(default=True)
     author = serializers.ChoiceField(choices=["Elder.Evil", "Nyx"], default="Elder.Evil")
+    search_description = serializers.CharField(required=False, default="", allow_blank=True)
+
+
+class BlogPageUpdateSerializer(serializers.Serializer):
+    """All fields optional for PATCH updates."""
+    title = serializers.CharField(max_length=255, required=False)
+    slug = serializers.SlugField(max_length=255, required=False)
+    date = serializers.DateField(required=False)
+    intro = serializers.CharField(max_length=250, required=False)
+    body = serializers.JSONField(required=False)
+    live = serializers.BooleanField(required=False)
+    author = serializers.ChoiceField(choices=["Elder.Evil", "Nyx"], required=False)
+    search_description = serializers.CharField(required=False, allow_blank=True)
 
 
 class BlogPageAPIViewSet(viewsets.ViewSet):
@@ -35,10 +48,30 @@ class BlogPageAPIViewSet(viewsets.ViewSet):
                 "intro": p.intro,
                 "url": p.url,
                 "author": p.author,
+                "search_description": p.search_description,
             }
             for p in qs
         ]
         return Response(posts)
+
+    def retrieve(self, request, pk=None):
+        try:
+            page = BlogPage.objects.get(pk=pk)
+        except BlogPage.DoesNotExist:
+            return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        return Response({
+            "id": page.id,
+            "title": page.title,
+            "slug": page.slug,
+            "date": page.date.isoformat(),
+            "intro": page.intro,
+            "body": page.body.raw_data if hasattr(page.body, "raw_data") else [],
+            "url": page.url,
+            "author": page.author,
+            "live": page.live,
+            "search_description": page.search_description,
+        })
 
     def create(self, request):
         serializer = BlogPageSerializer(data=request.data)
@@ -79,6 +112,7 @@ class BlogPageAPIViewSet(viewsets.ViewSet):
             body=data.get("body", []),
             live=data.get("live", True),
             author=data.get("author", "Elder.Evil"),
+            search_description=data.get("search_description", ""),
         )
         parent.add_child(instance=blog_page)
         blog_page.save_revision().publish()
@@ -92,3 +126,26 @@ class BlogPageAPIViewSet(viewsets.ViewSet):
             },
             status=status.HTTP_201_CREATED,
         )
+
+    def partial_update(self, request, pk=None):
+        try:
+            page = BlogPage.objects.get(pk=pk)
+        except BlogPage.DoesNotExist:
+            return Response({"detail": "Not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        serializer = BlogPageUpdateSerializer(data=request.data, partial=True)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        data = serializer.validated_data
+        for field, value in data.items():
+            setattr(page, field, value)
+
+        page.save_revision().publish()
+
+        return Response({
+            "id": page.id,
+            "title": page.title,
+            "slug": page.slug,
+            "url": page.url,
+        })
