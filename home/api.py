@@ -14,11 +14,31 @@ class BlogPageSerializer(serializers.Serializer):
     intro = serializers.CharField(max_length=250)
     body = serializers.JSONField(required=False, default=list)
     live = serializers.BooleanField(default=True)
+    author = serializers.ChoiceField(choices=["Elder.Evil", "Nyx"], default="Elder.Evil")
 
 
 class BlogPageAPIViewSet(viewsets.ViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    def list(self, request):
+        qs = BlogPage.objects.live().order_by("-first_published_at")
+        author = request.query_params.get("author")
+        if author:
+            qs = qs.filter(author=author)
+        posts = [
+            {
+                "id": p.id,
+                "title": p.title,
+                "slug": p.slug,
+                "date": p.date.isoformat(),
+                "intro": p.intro,
+                "url": p.url,
+                "author": p.author,
+            }
+            for p in qs
+        ]
+        return Response(posts)
 
     def create(self, request):
         serializer = BlogPageSerializer(data=request.data)
@@ -58,6 +78,7 @@ class BlogPageAPIViewSet(viewsets.ViewSet):
             intro=data["intro"],
             body=data.get("body", []),
             live=data.get("live", True),
+            author=data.get("author", "Elder.Evil"),
         )
         parent.add_child(instance=blog_page)
         blog_page.save_revision().publish()
