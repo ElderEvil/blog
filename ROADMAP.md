@@ -65,9 +65,22 @@ After the GitHub Actions pipeline is set up, the Makefile reduces to local testi
 
 ---
 
-## Next — CI/CD
+## Next — Nyx / Hermes Agent Integration
 
-### 4. GitHub Actions: build + push on tags
+### 4. Hermes skill for blog posting
+**20 minutes. Let Nyx publish directly from Telegram/Discord.**
+
+- Create `~/.hermes/skills/blog-posting/SKILL.md` on Hetzner
+- Document the API endpoint: `POST /api/blog/`
+- Auth via `Authorization: Token <BLOG_API_TOKEN>`
+- Include example payloads with `title`, `slug`, `date`, `intro`, `body`, `author`
+- Nyx can then write: `hermes blog create-post "Title" "Intro"`
+
+---
+
+## Later — CI/CD
+
+### 7. GitHub Actions: build + push on tags
 **30 minutes. No automated k8s deployment — intentional.**
 
 ```yaml
@@ -155,3 +168,6 @@ jobs:
 - [x] Umami analytics tracking on blog
 - [x] Umami GeoIP database fix (init container downloads GeoLite2-City.mmdb)
 - [x] Image uploads + renditions working end-to-end on S3
+- [x] Wagtail API v2 + DRF token auth for blog posts
+- [x] Author field on `BlogPage` (model, serializer, templates)
+- [x] API list endpoint with author filtering (`GET /api/blog/?author=`)
