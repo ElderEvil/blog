@@ -16,7 +16,7 @@ class HomePage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context["posts"] = BlogPage.objects.child_of(self).live().order_by("-first_published_at")
+        context["posts"] = BlogPage.objects.child_of(self).live().order_by("-date")
         return context
 
 
@@ -29,7 +29,7 @@ class BlogIndexPage(Page):
 
     def get_context(self, request, *args, **kwargs):
         context = super().get_context(request, *args, **kwargs)
-        context["posts"] = BlogPage.objects.child_of(self).live().order_by("-first_published_at")
+        context["posts"] = BlogPage.objects.child_of(self).live().order_by("-date")
         return context
 
 
