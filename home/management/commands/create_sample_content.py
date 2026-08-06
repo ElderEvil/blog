@@ -62,8 +62,11 @@ class Command(BaseCommand):
             ),
             (
                 "code",
-                'def greet(name: str) -> str:\n    return f"Hello, {name}!"\n\n'
-                'if __name__ == "__main__":\n    print(greet("World"))',
+                {
+                    "language": "python",
+                    "code": 'def greet(name: str) -> str:\n    return f"Hello, {name}!"\n\n'
+                            'if __name__ == "__main__":\n    print(greet("World"))',
+                },
             ),
             ("heading", "What's Next"),
             (

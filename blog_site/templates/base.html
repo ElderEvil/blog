@@ -15,8 +15,8 @@
         {% endblock %}
     </title>
     <meta name="description" content="{% if page.search_description %}{{ page.search_description }}{% endif %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
     {% block extra_css %}{% endblock %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
@@ -65,8 +65,22 @@
         })();
     </script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script>
+        (function() {
+            function highlight() {
+                if (window.Prism && Prism.highlightAll) {
+                    Prism.highlightAll();
+                } else {
+                    setTimeout(highlight, 100);
+                }
+            }
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', highlight);
+            } else {
+                highlight();
+            }
+        })();
+    </script>
     {% block extra_js %}{% endblock %}
     <script defer src="https://analytics.evillab.tech/umami.js" data-website-id="c82eb6a8-fbb5-4b23-a871-7c9227ac9cf6"></script>
 
