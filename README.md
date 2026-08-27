@@ -4,10 +4,13 @@ Personal blog powered by [Wagtail](https://wagtail.org/), deployed on k3s at [bl
 
 ## Stack
 
-- **Python 3.13** + **Django 6.0** + **Wagtail 7.4**
+- **Python 3.13** + **Django 6.0** + **Wagtail 8.0**
 - **uv** for package management, **ruff** for linting/formatting
 - **SQLite** (WAL mode) for data, **Whitenoise** for static files in production
 - **Docker** + **k3s** (Traefik ingress, cert-manager TLS)
+
+The Wagtail v3 preview API is available at `/api/v3-preview/` for token-authenticated CMS
+automation. See [Hermes publishing](docs/hermes-publishing.md).
 
 ## Local development
 

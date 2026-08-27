@@ -5,13 +5,12 @@ description = "Personal blog powered by Wagtail"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "wagtail>=6.0",
-    "djangorestframework>=3.15",
+    "wagtail>=8.0,<9.0",
+    "djangorestframework>=3.18",
     "gunicorn>=23",
     "whitenoise>=6.12.0",
     "django-storages>=1.14.6",
     "boto3>=1.43.6",
-    "wagtailcodeblock>=1.30.0.0",
 ]
 
 [dependency-groups]

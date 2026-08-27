@@ -29,10 +29,11 @@ uv run manage.py drf_create_token <username>   # generate API token
 
 ## Architecture
 
-- **Wagtail 7.4** + **Django 6.0** + **SQLite WAL** (`data/db.sqlite3`)
+- **Wagtail 8.0** + **Django 6.0** + **SQLite WAL** (`data/db.sqlite3`)
 - **uv** for packages, **ruff** for lint/format (line-length 100, double quotes, spaces)
 - **Whitenoise** for static files, **S3 (RustFS)** for media uploads
-- **DRF** + token auth for custom blog API; **Wagtail API v2** for pages/images
+- **DRF** + token auth for legacy custom API; **Wagtail API v2** for pages/images;
+  **Wagtail API v3 preview** for CMS automation
 
 ### Page tree
 
@@ -46,6 +47,8 @@ uv run manage.py drf_create_token <username>   # generate API token
 - `POST /api/blog/` — create post (TokenAuthentication required)
 - Serializer fields: `title`, `slug`, `date`, `intro`, `body`, `live`, `author`
 - Wagtail API v2 at `/api/v2/` for pages + images
+- Wagtail API v3 preview at `/api/v3-preview/` for Hermes publishing; see
+  `docs/hermes-publishing.md`
 
 ## Style & conventions
 

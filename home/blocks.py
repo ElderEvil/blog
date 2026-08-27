@@ -1,7 +1,6 @@
 from wagtail import blocks
 from wagtail.embeds.blocks import EmbedBlock
 from wagtail.images.blocks import ImageChooserBlock
-from wagtailcodeblock.blocks import CodeBlock
 
 
 class BodyBlock(blocks.StreamBlock):
@@ -13,4 +12,8 @@ class BodyBlock(blocks.StreamBlock):
     paragraph = blocks.RichTextBlock(features=["bold", "italic", "link", "ol", "ul", "code"])
     image = ImageChooserBlock(template="blocks/image.html")
     embed = EmbedBlock()
-    code = CodeBlock(label="Code")
+    code = blocks.CharBlock(
+        label="Code",
+        icon="code",
+        template="blocks/code.html",
+    )

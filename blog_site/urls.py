@@ -7,6 +7,7 @@ from wagtail import urls as wagtail_urls
 from wagtail.admin import urls as wagtailadmin_urls
 from wagtail.api.v2.router import WagtailAPIRouter
 from wagtail.api.v2.views import PagesAPIViewSet
+from wagtail.api.v3.urls import api as wagtail_api_v3
 from wagtail.documents import urls as wagtaildocs_urls
 from wagtail.images.api.v2.views import ImagesAPIViewSet
 
@@ -32,6 +33,8 @@ urlpatterns = [
         "api/v2/",
         include((wagtail_api_router.get_urlpatterns(), "wagtailapi"), namespace="wagtailapi"),
     ),
+    # v3 is intentionally mounted as a preview: its contract may still change in Wagtail 8.x.
+    path("api/v3-preview/", wagtail_api_v3.urls),
     path("api/", include(drf_router.urls)),
     path("api/images/", ImageUploadView.as_view(), name="image-upload"),
 ]

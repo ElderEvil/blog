@@ -1,5 +1,6 @@
 from django.db import models
 from wagtail.admin.panels import FieldPanel
+from wagtail.api import APIField
 from wagtail.fields import RichTextField, StreamField
 from wagtail.models import Page
 
@@ -47,6 +48,15 @@ class BlogPage(Page):
         choices=AUTHOR_CHOICES,
         default="Elder.Evil",
     )
+
+    # Shared by Wagtail's v2 and v3 APIs. In v3 these fields also form the
+    # generated create and update schemas used by Hermes.
+    api_fields = [
+        APIField("date", writable=True),
+        APIField("intro", writable=True),
+        APIField("body", writable=True),
+        APIField("author", writable=True),
+    ]
 
     content_panels = Page.content_panels + [
         FieldPanel("date"),

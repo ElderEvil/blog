@@ -29,6 +29,7 @@ INSTALLED_APPS = [
     "wagtail.admin",
     "wagtail",
     "wagtail.api.v2",
+    "wagtail.api.v3",
     "modelcluster",
     "taggit",
     "django.contrib.admin",
@@ -40,7 +41,6 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "storages",
-    "wagtailcodeblock",
 ]
 
 MIDDLEWARE = [
@@ -150,21 +150,3 @@ REST_FRAMEWORK = {
 # Wagtail API
 WAGTAILAPI_BASE_URL = WAGTAILADMIN_BASE_URL
 WAGTAILAPI_LIMIT_MAX = 100
-
-WAGTAIL_CODE_BLOCK_THEME = "tomorrow-night"
-
-WAGTAIL_CODE_BLOCK_LANGUAGES = (
-    ("bash", "Bash/Shell"),
-    ("css", "CSS"),
-    ("docker", "Docker"),
-    ("go", "Go"),
-    ("html", "HTML"),
-    ("javascript", "JavaScript"),
-    ("json", "JSON"),
-    ("markdown", "Markdown"),
-    ("python", "Python"),
-    ("rust", "Rust"),
-    ("sql", "SQL"),
-    ("typescript", "TypeScript"),
-    ("yaml", "YAML"),
-)
