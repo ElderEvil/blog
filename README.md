@@ -12,6 +12,9 @@ Personal blog powered by [Wagtail](https://wagtail.org/), deployed on k3s at [bl
 The Wagtail v3 preview API is available at `/api/v3-preview/` for token-authenticated CMS
 automation. See [Hermes publishing](docs/hermes-publishing.md).
 
+`/api/v2/`, `/api/blog/`, and `/api/images/` are deprecated compatibility endpoints. Their
+responses include a `Deprecation: true` header and point to the v3 API documentation.
+
 ## Local development
 
 ```bash

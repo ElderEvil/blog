@@ -3,6 +3,12 @@
 Hermes publishes through Wagtail API v3 at `https://blog.evillab.tech/api/v3-preview/`.
 The existing `/api/v2/` and `/api/` interfaces remain available for compatibility.
 
+## Deprecated endpoints
+
+`/api/v2/`, `/api/blog/`, and `/api/images/` are deprecated in favour of v3. Responses from
+those paths include `Deprecation: true` and a `Link` header pointing to the v3 interactive docs.
+New Hermes integrations must use v3; no removal date has been set yet.
+
 ## One-time setup
 
 Create a dedicated non-superuser Wagtail user named `hermes`, and give it **add**, **change**,
